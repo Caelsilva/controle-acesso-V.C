@@ -1,0 +1,240 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #2c2f33;
+}
+
+.painel {
+  display: flex;
+  min-height: 80vh;
+  animation: fadeIn 2s ease-in-out forwards;
+  margin: 20px; /* afasta tudo da borda da tela */
+}
+
+.menu {
+  width: 250px;
+  background-color:  #2c2f33;
+  color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 5px black;
+  animation: fadeIn 2s ease-in-out forwards;
+  
+border-radius: 10px ;
+box-shadow: 0 0 10px black;
+  
+}
+
+.menu h2 {
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+.menu label {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  font-family: 'Anton';
+  animation: fadeIn 2s ease-in-out forwards;
+  
+  
+}
+
+.menu input, .menu select {
+  width: 90%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Anton';
+  animation: fadeIn 2s ease-in-out forwards;
+  cursor:text;
+}
+
+
+.lista-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* rolagem vertical apenas dentro da lista */
+  font-family: 'Anton';
+  animation: fadeIn 2s ease-in-out forwards;
+  box-shadow: 0 0 10px black;
+   margin-right: 80px; /* aqui está o segredo! puxa tudo pra esquerda */
+  margin-left: 10px;           /* Espaço entre menu e lista */
+  border-radius: 10px;
+  background-color: #2c2f33;   /* Fundo diferente pra destacar */
+
+  max-height: 80vh; /* altura máxima da área de lista */
+  
+  scroll-behavior: smooth; /* rolagem suave */
+  
+}
+.lista-container h2{
+  color:white;
+  animation: fadeIn 2s ease-in-out forwards;
+  font-family: 'Anton';
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+ 
+}
+.lista-container h2 {
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+.card {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  animation: fadeIn 2s ease-in-out forwards;
+  
+}
+
+.card p {
+  margin: 5px 0;
+}
+@keyframes fadeIn {
+  from{
+    opacity: 0;
+   
+
+  }
+  to{
+    opacity: 1;
+    
+  }
+}
+button:active {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px white;
+ 
+}
+.filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+ 
+}
+
+.filtro input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  
+}
+
+.filtro button {
+  padding: 8px;
+  background-color:  #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100px;
+  
+}
+
+.filtro button:hover {
+  background-color:#007bff;
+  
+}
+
+.icone-preto {
+  color: black;
+  margin-right: 5px;
+}
+
+
+
+/* Layout padrão (por exemplo, para desktop) */
+.container {
+ 
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Para tablets (telas menores que 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
+/* Para celulares (telas menores que 600px) */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  input, button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+.icone-preto {
+  color: black;
+  margin-right: 5px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.tudo {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.painel {
+  flex: 1;
+  display: flex;
+  margin: 20px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #2c2f33;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  z-index: 1000;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+.logout-container {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 999;
+}
+
+#btnLogout {
+  padding: 8px 16px;
+  background-color: #2c2f33;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+#btnLogout:hover {
+  background-color:#2c2f33;
+}
+

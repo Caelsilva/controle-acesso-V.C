@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Acesso Vista Campinas</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+  <h2>Residencial Vista Campinas</h2>
+
+  <div class="container">
+    <h1>Login</h1>
+
+    <form id="login-form">
+      <input type="text" id="email" placeholder="Usuário" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Verifica se já está logado -->
+  <script>
+    (async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/usuario_logado", {
+          method: "GET",
+          credentials: "include"
+        });
+
+        if (!res.ok) return;
+
+        const usuario = await res.json();
+
+        if (usuario.tipo === "admin") {
+          window.location.href = "adm.html";
+        } else if (usuario.tipo === "funcionario") {
+          window.location.href = "funcionário.html";
+        } else if (usuario.tipo === "prestador") {
+          window.location.href = "cadastro.html";
+        }
+      } catch {
+        // Ignora erro — usuário não está logado
+      }
+    })();
+  </script>
+
+  <script src="login.js"></script>
+
+<script src="logout.js"></script>
+</body>
+</html>

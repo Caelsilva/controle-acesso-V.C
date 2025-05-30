@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Funcionário</title>
+  <link rel="stylesheet" href="funcionário.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    #filtroLote {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    #btnMenuToggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      #btnMenuToggle {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: #2c2f33;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 12px;
+        z-index: 1001;
+      }
+
+      .painel {
+        flex-direction: column;
+        margin: 0;
+        padding-top: 60px;
+      }
+
+      .menu {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 250px;
+        height: 100%;
+        background-color: #2c2f33;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+
+      .menu.mostrar {
+        left: 0;
+      }
+
+      .lista-container {
+        margin: 0 10px;
+      }
+
+      .filtro input,
+      .filtro select,
+      .filtro button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 1.4rem;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btnMenuToggle">☰ Menu</button>
+
+  <div class="logout-container">
+    <button id="btnLogout">Sair</button>
+  </div>
+
+  <div class="painel container">
+    <aside class="menu">
+      <h2>🔍 Filtros</h2>
+
+      <div class="filtro">
+        <label for="filtroLote">📌 Lote:</label>
+        <select id="filtroLote">
+          <option value="">Todos</option>
+          <option value="H-14">H-14</option>
+          <option value="g-14">g-14</option>
+          <option value="C-1">C-1</option>
+          <option value="F-31">F-31</option>
+          <option value="L-22">L-22</option>
+          <option value="K-17">K-17</option>
+          <option value="Z-9">Z-9</option>
+          <option value="M-4">M-4</option>
+          <option value="B-8">B-8</option>
+        </select>
+
+        <label for="filtroNome">👤 Nome:</label>
+        <input type="text" id="filtroNome" placeholder="Buscar nome" />
+
+        <label for="filtroCPF">🪪 CPF:</label>
+        <input type="text" id="filtroCPF" placeholder="Buscar CPF" />
+
+        <button onclick="aplicarFiltros()">Buscar</button>
+      </div>
+    </aside>
+
+    <main class="lista-container">
+      <h2>📋 Prestadores Cadastrados</h2>
+      <div id="listaPrestadores"></div>
+    </main>
+  </div>
+
+  <footer>
+    <p>Residencial Vista Campinas - Av 1, 91 - Cep: 13.097-211 - Tel: (19) 9 9952-4585 - Email: supervisor.vistacampinas@gmail.com</p>
+  </footer>
+
+  <script>
+    document.getElementById("btnMenuToggle").addEventListener("click", () => {
+      document.querySelector(".menu").classList.toggle("mostrar");
+    });
+  </script>
+  <script src="funcionário.js" defer></script>
+</body>
+</html>

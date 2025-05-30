@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Prestador</title>
+  <link rel="stylesheet" href="cadastro.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    @media (max-width: 768px) {
+      main {
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .form-container,
+      .lista-container {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      form input,
+      form textarea,
+      form button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="logout-container">
+  <button id="btnLogout">Sair</button>
+</div>
+
+<main style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+  <div class="form-container">
+    <h1>Cadastro de Prestador</h1>
+    <form id="formPrestador">
+      <input type="text" placeholder="Nome completo" id="nome" required />
+      <input type="text" placeholder="CPF" id="cpf" required />
+      <input type="tel" placeholder="Telefone" id="telefone" required />
+      <input type="text" placeholder="Lote" id="lote" required />
+      <input type="date" placeholder="Data de nascimento" id="dataNascimento" required />
+      <input type="number" placeholder="Período (até 90 dias)" id="periodo" min="1" max="90" required />
+      <textarea placeholder="Observações" id="observacao"></textarea>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <div class="lista-container" id="listaPrestadores">
+    <!-- Lista aparece aqui -->
+  </div>
+</main>
+
+<footer>
+  <p>Residencial Vista Campinas - Av 1, 91 - Cep: 13.097-211 - Tel: (19) 9 9952-4585 - Email: supervisor.vistacampinas@gmail.com</p>
+</footer>
+
+<script src="cadastro.js"></script>
+<script src="logout.js"></script>
+</body>
+</html>
