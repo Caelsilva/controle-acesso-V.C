@@ -5,7 +5,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
   const senha = document.getElementById("password").value;
 
   try {
-    const resposta = await fetch("https://controle-acesso-vc.onrender.com/login", {
+    const resposta = await fetch("https://controle-acesso-v-c.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -19,7 +19,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
     if (resposta.ok && dados.status === "ok") {
       alert(dados.mensagem);
 
-      const respostaUsuario = await fetch("https://controle-acesso-frontend.onrender.com/usuario_logado", {
+      const respostaUsuario = await fetch("https://controle-acesso-v-c.onrender.com/usuario_logado", {
         method: "GET",
         credentials: "include"
       });

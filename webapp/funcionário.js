@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   btnLogout.addEventListener("click", async () => {
     try {
       await fetch("https://controle-acesso-frontend.onrender.com/logout", {
-        method: "POST",
+        method: "GET",
         credentials: "include"
       });
     } catch (err) {
