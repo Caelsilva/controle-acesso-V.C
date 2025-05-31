@@ -13,7 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Habilita CORS com suporte a cookies
-CORS(app, supports_credentials=True, origins="http://127.0.0.1:5500")
+CORS(app, supports_credentials=True, origins="https://controle-acesso-vc.onrender.com")
 
 db.init_app(app)
 
@@ -230,5 +230,3 @@ if __name__ == '__main__':
             print("✅ Admin criado com sucesso!")
         else:
             print("⚠️ Admin já existe.")
-
-    app.run(debug=True)
