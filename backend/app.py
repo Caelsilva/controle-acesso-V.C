@@ -223,22 +223,21 @@ def resetar_admin():
 
 # ---------------------- RODAR SERVIDOR ----------------------
 
-if __name__ == '__main__':
-    with app.app_context():
-        print("🔄 Criando tabelas se não existirem...")
-        db.create_all()
+with app.app_context():
+    print("🔄 Criando tabelas se não existirem...")
+    db.create_all()
 
-        admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
-        if not admin:
-            print("✅ Criando admin padrão...")
-            admin = Usuario(
-                nome="Administrador",
-                email="admin@vistacampinas.com",
-                senha=generate_password_hash("123456"),
-                tipo="admin"
-            )
-            db.session.add(admin)
-            db.session.commit()
-            print("✅ Admin criado com sucesso!")
-        else:
-            print("⚠️ Admin já existe.")
+    admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
+    if not admin:
+        print("✅ Criando admin padrão...")
+        admin = Usuario(
+            nome="Administrador",
+            email="admin@vistacampinas.com",
+            senha=generate_password_hash("123456"),
+            tipo="admin"
+        )
+        db.session.add(admin)
+        db.session.commit()
+        print("✅ Admin criado com sucesso!")
+    else:
+        print("⚠️ Admin já existe.")
