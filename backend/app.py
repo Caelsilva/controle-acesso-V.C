@@ -13,10 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Habilita CORS com suporte a cookies
-CORS(app, supports_credentials=True, origins=[
-    "https://controle-acesso-frontend.onrender.com",
-    "https://controle-acesso-v-c.onrender.com"
-])
+CORS(app, resources={r"/*": {"origins": [
+    "https://controle-acesso-frontend.onrender.com"
+]}}, supports_credentials=True)
 
 db.init_app(app)
 
