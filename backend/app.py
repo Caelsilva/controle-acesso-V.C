@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from models import db, Usuario, Funcionario
@@ -8,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'sua_chave_ultra_secreta_aqui'  # troque isso depois por segurança
 
 # Configurações do banco
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/controle_acesso'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Habilita CORS com suporte a cookies
