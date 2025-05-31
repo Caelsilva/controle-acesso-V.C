@@ -218,9 +218,14 @@ def resetar_admin():
 
 if __name__ == '__main__':
     with app.app_context():
+        print("🔄 Criando tabelas se não existirem...")
         db.create_all()
 
-        if not Usuario.query.filter_by(email="admin@vistacampinas.com").first():
+        from werkzeug.security import generate_password_hash
+
+        admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
+        if not admin:
+            print("✅ Criando admin padrão...")
             admin = Usuario(
                 nome="Administrador",
                 email="admin@vistacampinas.com",
