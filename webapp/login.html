@@ -22,36 +22,36 @@
   </div>
 
   <!-- Verifica se já está logado (versão online) -->
-  <script>
-    (async () => {
-      try {
-        const res = await fetch("https://controle-acesso-frontend.onrender.com/usuario_logado", {
-          method: "GET",
-          credentials: "include"
-        });
+<script>
+  (async () => {
+    try {
+      const res = await fetch("https://controle-acesso-v-c.onrender.com/usuario_logado", {
+        method: "GET",
+        credentials: "include"
+      });
 
-        if (!res.ok) return;
+      if (!res.ok) return;
 
-        const usuario = await res.json();
+      const usuario = await res.json();
 
-        switch (usuario.tipo) {
-          case "admin":
-            window.location.href = "adm.html";
-            break;
-          case "funcionario":
-            window.location.href = "funcionário.html";
-            break;
-          case "prestador":
-            window.location.href = "cadastro.html";
-            break;
-          default:
-            alert("Tipo de usuário desconhecido.");
-        }
-      } catch {
-        // Usuário não logado, ignora erro
+      switch (usuario.tipo) {
+        case "admin":
+          window.location.href = "adm.html";
+          break;
+        case "funcionario":
+          window.location.href = "funcionário.html";
+          break;
+        case "prestador":
+          window.location.href = "cadastro.html";
+          break;
+        default:
+          alert("Tipo de usuário desconhecido.");
       }
-    })();
-  </script>
+    } catch {
+      // Usuário não logado, ignora erro
+    }
+  })();
+</script>
 
   <script src="login.js"></script>
   <script src="logout.js"></script>

@@ -252,140 +252,140 @@
   </div>
 
   <script>
-    let redefinirId = null;
-    let redefinirNome = "";
+  let redefinirId = null;
+  let redefinirNome = "";
 
-    document.addEventListener("DOMContentLoaded", () => {
-      verificarSessao();
+  document.addEventListener("DOMContentLoaded", () => {
+    verificarSessao();
 
-      document.getElementById("btnMenuToggle").addEventListener("click", () => {
-        document.querySelector("aside").classList.toggle("mostrar");
-      });
-
-      document.getElementById("btnLogout").addEventListener("click", async (e) => {
-        e.preventDefault();
-        const res = await fetch("https://controle-acesso-frontend.onrender.com/logout", {
-          method: "POST",
-          credentials: "include"
-        });
-        if (res.ok) {
-          alert("Sessão encerrada!");
-          window.location.href = "login.html";
-        }
-      });
+    document.getElementById("btnMenuToggle").addEventListener("click", () => {
+      document.querySelector("aside").classList.toggle("mostrar");
     });
 
-    async function verificarSessao() {
-      const res = await fetch("https://controle-acesso-frontend.onrender.com/usuario_logado", {
-        method: "GET",
-        credentials: "include"
-      });
-      if (!res.ok) return window.location.href = "login.html";
-
-      const dados = await res.json();
-      if (dados.tipo !== "admin") {
-        alert("Acesso restrito.");
-        window.location.href = "login.html";
-        return;
-      }
-      buscarUsuarios();
-    }
-
-    async function buscarUsuarios() {
-      const res = await fetch("https://controle-acesso-frontend.onrender.com/usuarios", {
-        method: "GET",
-        credentials: "include"
-      });
-      const dados = await res.json();
-      renderLogins(dados);
-    }
-
-    function renderLogins(lista) {
-      const tbody = document.querySelector('#loginTable tbody');
-      tbody.innerHTML = '';
-      lista.forEach(u => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${u.nome}</td>
-          <td>${u.email}</td>
-          <td>${u.tipo}</td>
-          <td>
-            <button class="block-btn" onclick="excluirLogin(${u.id}, '${u.nome}')">Excluir</button>
-            <button class="reset-btn" onclick="redefinirSenha(${u.id}, '${u.nome}')">Redefinir Senha</button>
-          </td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
-
-    async function excluirLogin(id, nome) {
-      if (!confirm(`Excluir o usuário "${nome}"?`)) return;
-      const res = await fetch(`"https://controle-acesso-frontend.onrender.com/excluir_usuario/${id}`, {
-        method: "DELETE",
-        credentials: "include"
-      });
-      const dados = await res.json();
-      alert(dados.mensagem || dados.erro);
-      buscarUsuarios();
-    }
-
-    function redefinirSenha(id, nome) {
-      redefinirId = id;
-      redefinirNome = nome;
-      document.getElementById("novaSenhaInput").value = "";
-      document.getElementById("nomeUsuarioModal").innerText = nome;
-      document.getElementById("senhaModal").style.display = "flex";
-    }
-
-    function fecharModal() {
-      document.getElementById("senhaModal").style.display = "none";
-    }
-
-    async function confirmarRedefinicao() {
-      const novaSenha = document.getElementById("novaSenhaInput").value;
-      if (!novaSenha) {
-        alert("Digite a nova senha.");
-        return;
-      }
-
-      const res = await fetch("https://controle-acesso-frontend.onrender.com/redefinir_senha", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ id: redefinirId, nova_senha: novaSenha })
-      });
-
-      const dados = await res.json();
-      alert(dados.mensagem || dados.erro);
-      fecharModal();
-    }
-
-    document.getElementById("formLogin").addEventListener("submit", async (e) => {
+    document.getElementById("btnLogout").addEventListener("click", async (e) => {
       e.preventDefault();
-      const nome = document.getElementById("login-nome").value;
-      const login = document.getElementById("login-user").value;
-      const senha = document.getElementById("login-senha").value;
-      const tipo = document.getElementById("login-tipo").value;
-
-      if (!nome || !login || !senha) {
-        alert("Preencha todos os campos.");
-        return;
-      }
-
-      const res = await fetch("https://controle-acesso-frontend.onrender.com/cadastrar_usuario", {
+      const res = await fetch("https://controle-acesso-v-c.onrender.com/logout", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ nome, login, senha, tipo })
+        credentials: "include"
       });
-
-      const dados = await res.json();
-      alert(dados.mensagem || dados.erro);
       if (res.ok) {
-        e.target.reset();
-        buscarUsuarios();
+        alert("Sessão encerrada!");
+        window.location.href = "login.html";
       }
     });
-  </script>
+  });
+
+  async function verificarSessao() {
+    const res = await fetch("https://controle-acesso-v-c.onrender.com/usuario_logado", {
+      method: "GET",
+      credentials: "include"
+    });
+    if (!res.ok) return window.location.href = "login.html";
+
+    const dados = await res.json();
+    if (dados.tipo !== "admin") {
+      alert("Acesso restrito.");
+      window.location.href = "login.html";
+      return;
+    }
+    buscarUsuarios();
+  }
+
+  async function buscarUsuarios() {
+    const res = await fetch("https://controle-acesso-v-c.onrender.com/usuarios", {
+      method: "GET",
+      credentials: "include"
+    });
+    const dados = await res.json();
+    renderLogins(dados);
+  }
+
+  function renderLogins(lista) {
+    const tbody = document.querySelector('#loginTable tbody');
+    tbody.innerHTML = '';
+    lista.forEach(u => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${u.nome}</td>
+        <td>${u.email}</td>
+        <td>${u.tipo}</td>
+        <td>
+          <button class="block-btn" onclick="excluirLogin(${u.id}, '${u.nome}')">Excluir</button>
+          <button class="reset-btn" onclick="redefinirSenha(${u.id}, '${u.nome}')">Redefinir Senha</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  async function excluirLogin(id, nome) {
+    if (!confirm(`Excluir o usuário "${nome}"?`)) return;
+    const res = await fetch(`https://controle-acesso-v-c.onrender.com/excluir_usuario/${id}`, {
+      method: "DELETE",
+      credentials: "include"
+    });
+    const dados = await res.json();
+    alert(dados.mensagem || dados.erro);
+    buscarUsuarios();
+  }
+
+  function redefinirSenha(id, nome) {
+    redefinirId = id;
+    redefinirNome = nome;
+    document.getElementById("novaSenhaInput").value = "";
+    document.getElementById("nomeUsuarioModal").innerText = nome;
+    document.getElementById("senhaModal").style.display = "flex";
+  }
+
+  function fecharModal() {
+    document.getElementById("senhaModal").style.display = "none";
+  }
+
+  async function confirmarRedefinicao() {
+    const novaSenha = document.getElementById("novaSenhaInput").value;
+    if (!novaSenha) {
+      alert("Digite a nova senha.");
+      return;
+    }
+
+    const res = await fetch("https://controle-acesso-v-c.onrender.com/redefinir_senha", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ id: redefinirId, nova_senha: novaSenha })
+    });
+
+    const dados = await res.json();
+    alert(dados.mensagem || dados.erro);
+    fecharModal();
+  }
+
+  document.getElementById("formLogin").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const nome = document.getElementById("login-nome").value;
+    const login = document.getElementById("login-user").value;
+    const senha = document.getElementById("login-senha").value;
+    const tipo = document.getElementById("login-tipo").value;
+
+    if (!nome || !login || !senha) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    const res = await fetch("https://controle-acesso-v-c.onrender.com/cadastrar_usuario", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ nome, login, senha, tipo })
+    });
+
+    const dados = await res.json();
+    alert(dados.mensagem || dados.erro);
+    if (res.ok) {
+      e.target.reset();
+      buscarUsuarios();
+    }
+  });
+</script>
 </body>
 </html>

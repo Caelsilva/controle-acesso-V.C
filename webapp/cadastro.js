@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Verifica sessão
   try {
-    const resposta = await fetch("https://controle-acesso-frontend.onrender.com/usuario_logado", {
+    const resposta = await fetch("https://controle-acesso-v-c.onrender.com/usuario_logado", {
       method: "GET",
       credentials: "include"
     });
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function carregarPrestadores() {
-    fetch(`https://controle-acesso-frontend.onrender.com/listar_funcionarios?apenas_meus=true`, {
+    fetch(`https://controle-acesso-v-c.onrender.com/listar_funcionarios?apenas_meus=true`, {
       method: "GET",
       credentials: "include"
     })
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log("📨 Enviando para o backend:", prestador);
 
-    fetch('https://controle-acesso-frontend.onrender.com/cadastrar_funcionario', {
+    fetch('https://controle-acesso-v-c.onrender.com/cadastrar_funcionario', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ const logoutBtn = document.getElementById("btnLogout");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
-      await fetch("https://controle-acesso-frontend.onrender.com/logout", {
+      await fetch("https://controle-acesso-v-c.onrender.com/logout", {
         method: "POST",
         credentials: "include"
       });

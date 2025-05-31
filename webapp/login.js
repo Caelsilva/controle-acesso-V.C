@@ -5,7 +5,7 @@ document.getElementById("login-form").addEventListener("submit", async function 
   const senha = document.getElementById("password").value;
 
   try {
-    const resposta = await fetch("https://controle-acesso-v-c.onrender.com", {
+    const resposta = await fetch("https://controle-acesso-v-c.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
