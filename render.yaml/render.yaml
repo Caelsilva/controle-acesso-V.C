@@ -5,6 +5,6 @@ services:
     buildCommand: "pip install -r backend/requirements.txt"
     startCommand: "gunicorn app:app"
     envVars:
-      - key: DATABASE_URL
-        value: "postgresql://controle_acesso_user:SUASENHA@host/render/controle_acesso"
+  - key: DATABASE_URL
+    value: postgresql://controle_acesso_user:YaWYI6TZ4ye2XGLVTGl3gF3PZ0w0CnaQ@dpg-d0t4nradbo4c739acbsg-a.oregon-postgres.render.com/controle_acesso
     rootDir: backend
