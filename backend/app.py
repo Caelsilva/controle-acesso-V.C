@@ -6,17 +6,19 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_ultra_secreta_aqui'  # troque depois por uma mais segura
+app.secret_key = 'sua_chave_ultra_secreta_aqui'
 
-# Configurações do banco
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# ✅ URL do banco: usa variável de ambiente no Render, senão usa local
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL',
+    'postgresql://postgres:123456@localhost/controle_acesso'  # fallback local
+)
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Permitir sessão cross-origin
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 
-# CORS para frontend
+# CORS para frontend no Render
 CORS(app, supports_credentials=True, origins=[
     "https://controle-acesso-frontend.onrender.com"
 ])
@@ -53,6 +55,7 @@ def login():
                 "status": "erro",
                 "mensagem": "Usuário ou senha inválidos!"
             }), 401
+
     except Exception as e:
         print("❌ ERRO NA ROTA /login:", e)
         return jsonify({"erro": f"Erro interno no login: {str(e)}"}), 500
@@ -109,6 +112,7 @@ def listar_usuarios():
 @app.route('/excluir_usuario/<int:id>', methods=['DELETE'])
 def excluir_usuario(id):
     usuario = Usuario.query.get(id)
+
     if not usuario:
         return jsonify({"mensagem": "Usuário não encontrado!"}), 404
 
@@ -120,11 +124,12 @@ def excluir_usuario(id):
         return jsonify({"erro": f"Erro ao excluir usuário: {str(e)}"}), 500
 
 @app.route('/cadastrar_funcionario', methods=['POST'])
-def cadastrar_funcionario():
+def cadastrar_funcionário():
     if 'usuario_email' not in session:
         return jsonify({'erro': 'Usuário não autenticado'}), 401
 
     dados = request.get_json()
+
     try:
         data_inicio = datetime.strptime(dados['dataInicio'], '%Y-%m-%d').date()
         data_fim = datetime.strptime(dados['dataFim'], '%Y-%m-%d').date()
@@ -222,7 +227,7 @@ def resetar_admin():
         print("❌ ERRO NA ROTA /resetar_admin:", e)
         return jsonify({"erro": str(e)}), 500
 
-# ---------------------- CRIA TABELAS E ADMIN ----------------------
+# ---------------------- RODAR SERVIDOR ----------------------
 
 with app.app_context():
     print("🔄 Criando tabelas se não existirem...")
