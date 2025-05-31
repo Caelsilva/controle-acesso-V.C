@@ -292,7 +292,7 @@
     }
 
     async function buscarUsuarios() {
-      const res = await fetch("http://127.0.0.1:5000/usuarios", {
+      const res = await fetch("https://controle-acesso-vc.onrender.com/usuarios", {
         method: "GET",
         credentials: "include"
       });
@@ -320,7 +320,7 @@
 
     async function excluirLogin(id, nome) {
       if (!confirm(`Excluir o usuário "${nome}"?`)) return;
-      const res = await fetch(`http://127.0.0.1:5000/excluir_usuario/${id}`, {
+      const res = await fetch(`"https://controle-acesso-vc.onrender.com/excluir_usuario/${id}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -348,7 +348,7 @@
         return;
       }
 
-      const res = await fetch("http://127.0.0.1:5000/redefinir_senha", {
+      const res = await fetch("https://controle-acesso-vc.onrender.com/redefinir_senha", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -372,7 +372,7 @@
         return;
       }
 
-      const res = await fetch("http://127.0.0.1:5000/cadastrar_usuario", {
+      const res = await fetch("https://controle-acesso-vc.onrender.com/cadastrar_usuario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

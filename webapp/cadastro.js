@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Verifica sessão
   try {
-    const resposta = await fetch("http://127.0.0.1:5000/usuario_logado", {
+    const resposta = await fetch("https://controle-acesso-vc.onrender.com/usuario_logado", {
       method: "GET",
       credentials: "include"
     });
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function carregarPrestadores() {
-    fetch(`http://127.0.0.1:5000/listar_funcionarios?apenas_meus=true`, {
-  method: "GET",
-  credentials: "include"
-})
+    fetch(`https://controle-acesso-vc.onrender.com/listar_funcionarios?apenas_meus=true`, {
+      method: "GET",
+      credentials: "include"
+    })
       .then(response => {
         if (!response.ok) {
           throw new Error("Erro ao buscar prestadores do banco");
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log("📨 Enviando para o backend:", prestador);
 
-    fetch('http://127.0.0.1:5000/cadastrar_funcionario', {
+    fetch('https://controle-acesso-vc.onrender.com/cadastrar_funcionario', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ const logoutBtn = document.getElementById("btnLogout");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
-      await fetch("http://127.0.0.1:5000/logout", {
+      await fetch("https://controle-acesso-vc.onrender.com/logout", {
         method: "POST",
         credentials: "include"
       });

@@ -5,12 +5,12 @@ document.getElementById("login-form").addEventListener("submit", async function 
   const senha = document.getElementById("password").value;
 
   try {
-    const resposta = await fetch("http://127.0.0.1:5000/login", {
+    const resposta = await fetch("https://controle-acesso-vc.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include",  // ESSENCIAL PRA USAR SESSÃO
+      credentials: "include",
       body: JSON.stringify({ email, senha })
     });
 
@@ -19,33 +19,35 @@ document.getElementById("login-form").addEventListener("submit", async function 
     if (resposta.ok && dados.status === "ok") {
       alert(dados.mensagem);
 
-      // Após login bem-sucedido, buscar dados do usuário logado
-      const respostaUsuario = await fetch("http://127.0.0.1:5000/usuario_logado", {
+      const respostaUsuario = await fetch("https://controle-acesso-vc.onrender.com/usuario_logado", {
         method: "GET",
-        credentials: "include"  // de novo, pra manter a sessão
+        credentials: "include"
       });
+
+      if (!respostaUsuario.ok) {
+        throw new Error("Erro ao identificar o usuário logado.");
+      }
 
       const usuario = await respostaUsuario.json();
 
-      if (respostaUsuario.ok) {
-        // Redirecionar baseado no tipo de usuário retornado pela sessão
-        if (usuario.tipo === "admin") {
+      switch (usuario.tipo) {
+        case "admin":
           window.location.href = "adm.html";
-        } else if (usuario.tipo === "funcionario") {
+          break;
+        case "funcionario":
           window.location.href = "funcionário.html";
-        } else if (usuario.tipo === "prestador") {
+          break;
+        case "prestador":
           window.location.href = "cadastro.html";
-        } else {
+          break;
+        default:
           alert("Tipo de usuário desconhecido. Fale com o suporte.");
-        }
-      } else {
-        alert("Erro ao identificar o usuário logado.");
       }
     } else {
-      alert(dados.mensagem || "Erro no login.");
+      alert(dados.mensagem || "Email ou senha inválidos.");
     }
   } catch (error) {
-    console.error('Erro no login:', error);
-    alert('Erro ao tentar logar. Tente novamente.');
+    console.error("Erro no login:", error);
+    alert("Erro ao tentar fazer login. Tente novamente.");
   }
 });

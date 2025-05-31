@@ -21,11 +21,11 @@
     </form>
   </div>
 
-  <!-- Verifica se já está logado -->
+  <!-- Verifica se já está logado (versão online) -->
   <script>
     (async () => {
       try {
-        const res = await fetch("http://127.0.0.1:5000/usuario_logado", {
+        const res = await fetch("https://controle-acesso-vc.onrender.com/usuario_logado", {
           method: "GET",
           credentials: "include"
         });
@@ -34,21 +34,27 @@
 
         const usuario = await res.json();
 
-        if (usuario.tipo === "admin") {
-          window.location.href = "adm.html";
-        } else if (usuario.tipo === "funcionario") {
-          window.location.href = "funcionário.html";
-        } else if (usuario.tipo === "prestador") {
-          window.location.href = "cadastro.html";
+        switch (usuario.tipo) {
+          case "admin":
+            window.location.href = "adm.html";
+            break;
+          case "funcionario":
+            window.location.href = "funcionário.html";
+            break;
+          case "prestador":
+            window.location.href = "cadastro.html";
+            break;
+          default:
+            alert("Tipo de usuário desconhecido.");
         }
       } catch {
-        // Ignora erro — usuário não está logado
+        // Usuário não logado, ignora erro
       }
     })();
   </script>
 
   <script src="login.js"></script>
+  <script src="logout.js"></script>
 
-<script src="logout.js"></script>
 </body>
 </html>

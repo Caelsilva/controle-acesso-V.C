@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Verifica sessão e só então carrega os dados
   try {
-    const resposta = await fetch("http://127.0.0.1:5000/usuario_logado", {
+    const resposta = await fetch("https://controle-acesso-vc.onrender.com/usuario_logado", {
       method: "GET",
       credentials: "include"
     });
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function carregarTodosPrestadores() {
     try {
-      const response = await fetch("http://127.0.0.1:5000/listar_funcionarios", {
+      const response = await fetch("https://controle-acesso-vc.onrender.com/listar_funcionarios", {
         method: "GET",
         credentials: "include"
       });
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnLogout.addEventListener("click", async () => {
     try {
-      await fetch("http://127.0.0.1:5000/logout", {
+      await fetch("https://controle-acesso-vc.onrender.com/logout", {
         method: "POST",
         credentials: "include"
       });

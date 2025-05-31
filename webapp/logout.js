@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btn) {
     btn.addEventListener("click", async () => {
       try {
-        const res = await fetch("http://127.0.0.1:5000/logout", {
+        const res = await fetch("https://controle-acesso-vc.onrender.com/logout", {
           method: "POST",
           credentials: "include"
         });
