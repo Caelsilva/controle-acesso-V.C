@@ -6,5 +6,5 @@ services:
     startCommand: "gunicorn app:app"
     envVars:
       - key: DATABASE_URL
-        value: "postgresql://controle_acesso_user:SUA_SENHA_AQUI@dpg-xxxx.oregon-postgres.render.com/controle_acesso"
+        value: "postgresql://controle_acesso_user:SUASENHA@host/render/controle_acesso"
     rootDir: backend
