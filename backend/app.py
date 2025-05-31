@@ -27,27 +27,32 @@ def home():
 
 @app.route('/login', methods=['POST'])
 def login():
-    dados = request.json
-    email = dados.get('email')
-    senha = dados.get('senha')
+    try:
+        dados = request.json
+        email = dados.get('email')
+        senha = dados.get('senha')
 
-    usuario = Usuario.query.filter_by(email=email).first()
+        usuario = Usuario.query.filter_by(email=email).first()
 
-    if usuario and check_password_hash(usuario.senha, senha):
-        session['usuario_id'] = usuario.id
-        session['usuario_email'] = usuario.email
-        session['usuario_tipo'] = usuario.tipo
+        if usuario and check_password_hash(usuario.senha, senha):
+            session['usuario_id'] = usuario.id
+            session['usuario_email'] = usuario.email
+            session['usuario_tipo'] = usuario.tipo
 
-        return jsonify({
-            "status": "ok",
-            "mensagem": "Login realizado com sucesso!",
-            "tipo": usuario.tipo
-        })
-    else:
-        return jsonify({
-            "status": "erro",
-            "mensagem": "Usuário ou senha inválidos!"
-        }), 401
+            return jsonify({
+                "status": "ok",
+                "mensagem": "Login realizado com sucesso!",
+                "tipo": usuario.tipo
+            })
+        else:
+            return jsonify({
+                "status": "erro",
+                "mensagem": "Usuário ou senha inválidos!"
+            }), 401
+
+    except Exception as e:
+        print("❌ ERRO NA ROTA /login:", e)
+        return jsonify({"erro": f"Erro interno no login: {str(e)}"}), 500
 
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -162,7 +167,6 @@ def listar_funcionarios():
     if not usuario:
         return jsonify([])
 
-    # 🔍 Se for prestador, ou se o frontend solicitar apenas os próprios cadastros
     if tipo == "prestador" or apenas_meus:
         funcionarios = Funcionario.query.filter_by(criador_id=usuario.id).all()
     else:
@@ -204,15 +208,18 @@ def redefinir_senha():
 
     return jsonify({"mensagem": "Senha redefinida com sucesso!"})
 
-# 🔐 ROTA TEMPORÁRIA PARA RESETAR ADMIN
 @app.route("/resetar_admin", methods=["GET"])
 def resetar_admin():
-    admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
-    if admin:
-        admin.senha = generate_password_hash("123456")
-        db.session.commit()
-        return jsonify({"mensagem": "Senha resetada com sucesso!"})
-    return jsonify({"erro": "Admin não encontrado!"}), 404
+    try:
+        admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
+        if admin:
+            admin.senha = generate_password_hash("123456")
+            db.session.commit()
+            return jsonify({"mensagem": "Senha resetada com sucesso!"})
+        return jsonify({"erro": "Admin não encontrado!"}), 404
+    except Exception as e:
+        print("❌ ERRO NA ROTA /resetar_admin:", e)
+        return jsonify({"erro": str(e)}), 500
 
 # ---------------------- RODAR SERVIDOR ----------------------
 
@@ -220,8 +227,6 @@ if __name__ == '__main__':
     with app.app_context():
         print("🔄 Criando tabelas se não existirem...")
         db.create_all()
-
-        from werkzeug.security import generate_password_hash
 
         admin = Usuario.query.filter_by(email="admin@vistacampinas.com").first()
         if not admin:
